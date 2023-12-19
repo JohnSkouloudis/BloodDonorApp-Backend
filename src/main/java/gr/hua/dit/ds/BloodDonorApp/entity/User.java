@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,11 +35,17 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    @Column
+    private Date lastBloodDonation;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany( mappedBy ="user", cascade = CascadeType.ALL)
+    private List<Notification> notifications;
 
     public User() {
     }
@@ -46,6 +54,22 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public Date getLastBloodDonation() {
+        return lastBloodDonation;
+    }
+
+    public void setLastBloodDonation(Date lastBloodDonation) {
+        this.lastBloodDonation = lastBloodDonation;
     }
 
     public Integer getId() {

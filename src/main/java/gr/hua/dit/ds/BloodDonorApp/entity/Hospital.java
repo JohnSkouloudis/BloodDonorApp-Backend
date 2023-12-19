@@ -17,8 +17,7 @@ public class Hospital {
     public Hospital() {
     }
 
-    public Hospital(Integer id, String name) {
-        this.id = id;
+    public Hospital( String name) {
         this.name = name;
     }
 

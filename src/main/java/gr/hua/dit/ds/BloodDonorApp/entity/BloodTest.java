@@ -37,7 +37,7 @@ public class BloodTest {
     public BloodTest() {
     }
 
-    public BloodTest(Integer id,
+    public BloodTest(
                      Integer height,
                      Integer weight,
                      Integer rhesusFactor,
@@ -46,7 +46,6 @@ public class BloodTest {
                      Integer redBloodCellCount,
                      String dateOfTest,
                      String hospitalName) {
-        this.id = id;
         this.height = height;
         this.weight = weight;
         this.rhesusFactor = rhesusFactor;

@@ -40,13 +40,12 @@ public class Application {
     public Application() {
     }
 
-    public Application(Integer id,
+    public Application(
                        Integer age,
                        String firstName,
                        String lastName,
                        String bloodType,
                        String area) {
-        this.id = id;
         this.age = age;
         this.firstName = firstName;
         this.lastName = lastName;
