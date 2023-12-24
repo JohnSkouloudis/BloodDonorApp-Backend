@@ -143,14 +143,7 @@ public class BloodTest {
                 '}';
     }
 
-    @OneToOne(mappedBy = "bloodTest", optional = false)
-    private Application application;
 
-    public Application getApplication() {
-        return application;
-    }
 
-    public void setApplication(Application application) {
-        this.application = application;
-    }
+
 }
