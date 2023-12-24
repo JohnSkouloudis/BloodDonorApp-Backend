@@ -53,6 +53,14 @@ public class Application {
         this.area = area;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public BloodTest getBloodTest() {
         return bloodTest;
     }
