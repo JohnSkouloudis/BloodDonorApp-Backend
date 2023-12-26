@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +37,7 @@ public class User {
     private String password;
 
     @Column
-    private Date lastBloodDonation;
+    private LocalDate lastBloodDonation;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
@@ -48,12 +49,14 @@ public class User {
     private List<Notification> notifications;
 
     public User() {
+        this.lastBloodDonation = LocalDate.now();
     }
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.lastBloodDonation = LocalDate.now();
     }
 
     public List<Notification> getNotifications() {
@@ -64,11 +67,11 @@ public class User {
         this.notifications = notifications;
     }
 
-    public Date getLastBloodDonation() {
+    public LocalDate getLastBloodDonation() {
         return lastBloodDonation;
     }
 
-    public void setLastBloodDonation(Date lastBloodDonation) {
+    public void setLastBloodDonation(LocalDate lastBloodDonation) {
         this.lastBloodDonation = lastBloodDonation;
     }
 
