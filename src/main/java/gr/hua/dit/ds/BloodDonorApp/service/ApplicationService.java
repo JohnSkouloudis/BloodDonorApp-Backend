@@ -31,9 +31,9 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void saveApplication(Application application){
+    public Application saveApplication(Application application){
         ApplicationRepository.save(application);
-
+        return application;
     }
 
     @Transactional

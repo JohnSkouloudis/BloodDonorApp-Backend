@@ -3,6 +3,7 @@ package gr.hua.dit.ds.BloodDonorApp.controller;
 import gr.hua.dit.ds.BloodDonorApp.entity.Application;
 import gr.hua.dit.ds.BloodDonorApp.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,20 @@ public class ApplicationController {
     public List<Application> getApplications() {
         List<Application> applications = applicationService.getApplications();
         return applications;
+    }
+
+    @GetMapping("/{applicationId}")
+    @ResponseBody
+    public Application getApplication(@PathVariable Integer applicationId){
+        Application application = applicationService.getApplication(applicationId);
+        return application;
+    }
+
+    @DeleteMapping("/{applicationId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<String> deleteApplication(@PathVariable Integer applicationId){
+        applicationService.deleteApplication(applicationId);
+        return ResponseEntity.ok("Application with ID " + applicationId + " deleted successfully.");
     }
 
     @PostMapping("/new")

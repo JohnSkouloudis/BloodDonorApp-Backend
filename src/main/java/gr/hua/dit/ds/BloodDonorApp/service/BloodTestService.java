@@ -14,8 +14,9 @@ public class BloodTestService {
     @Autowired
     private BloodTestRepository bloodTestRepository;
     @Transactional
-    public void saveBloodTest(BloodTest bloodTest){
+    public BloodTest saveBloodTest(BloodTest bloodTest){
         bloodTestRepository.save(bloodTest);
+        return bloodTest;
     }
 
     @Transactional
