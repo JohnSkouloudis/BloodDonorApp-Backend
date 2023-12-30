@@ -46,24 +46,24 @@ public class ApplicationController {
         return ResponseEntity.ok(savedApplication);
     }
 
-    @PostMapping("/{applicationId}/approve")
-    public ResponseEntity<Application> approveApplication(@PathVariable Integer applicationId){
-        Application approvedApplication = applicationService.approveApplication(applicationId);
-        if (approvedApplication != null) {
-            return ResponseEntity.ok(approvedApplication);
-        }else{
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PostMapping("/{applicationId}/reject")
-    public ResponseEntity<Application> rejectApplication(@PathVariable Integer applicationId) {
-        Application rejectedApplication = applicationService.rejectApplication(applicationId);
-        if (rejectedApplication != null) {
-            return ResponseEntity.ok(rejectedApplication);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @PostMapping("/{applicationId}/approve")
+//    public ResponseEntity<Application> approveApplication(@PathVariable Integer applicationId){
+//        Application approvedApplication = applicationService.approveApplication(applicationId);
+//        if (approvedApplication != null) {
+//            return ResponseEntity.ok(approvedApplication);
+//        }else{
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//    @PostMapping("/{applicationId}/reject")
+//    public ResponseEntity<Application> rejectApplication(@PathVariable Integer applicationId) {
+//        Application rejectedApplication = applicationService.rejectApplication(applicationId);
+//        if (rejectedApplication != null) {
+//            return ResponseEntity.ok(rejectedApplication);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
 }

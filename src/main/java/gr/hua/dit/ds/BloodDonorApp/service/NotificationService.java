@@ -19,22 +19,22 @@ public class NotificationService {
     @Autowired
     private UserRepository userRepository;
 
-    @Transactional
-    public void saveNotification(Notification notification,Integer userId){
-        User user= userRepository.findById(userId).get();
-        notification.setUser(user);
-        notificationRepository.save(notification);
-    }
-
-    @Transactional
-    public void deleteNotification(Integer notificationId){
-        notificationRepository.deleteById(notificationId);
-    }
-
-    @Transactional
-    public List<Notification> getNotifications(){
-        return notificationRepository.findAll();
-    }
+//    @Transactional
+//    public void saveNotification(Notification notification,Integer userId){
+//        User user= userRepository.findById(userId).get();
+//        notification.setUser(user);
+//        notificationRepository.save(notification);
+//    }
+//
+//    @Transactional
+//    public void deleteNotification(Integer notificationId){
+//        notificationRepository.deleteById(notificationId);
+//    }
+//
+//    @Transactional
+//    public List<Notification> getNotifications(){
+//        return notificationRepository.findAll();
+//    }
 
     @Transactional
     public List<Notification> getUserNotifications(Integer userId){

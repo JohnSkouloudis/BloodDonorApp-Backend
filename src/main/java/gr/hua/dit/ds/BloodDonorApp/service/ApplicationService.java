@@ -25,10 +25,10 @@ public class ApplicationService {
         return ApplicationRepository.findById(applicationId).get();
     }
 
-    @Transactional
-    public Application findApplicationByUser(User user) {
-        return ApplicationRepository.findByUser(user).get();
-    }
+//    @Transactional
+//    public Application findApplicationByUser(User user) {
+//        return ApplicationRepository.findByUser(user).get();
+//    }
 
     @Transactional
     public Application saveApplication(Application application){
