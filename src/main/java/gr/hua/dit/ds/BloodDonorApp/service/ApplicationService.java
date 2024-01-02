@@ -45,6 +45,7 @@ public class ApplicationService {
     public Application approveApplication(Integer applicationId){
         Application application= ApplicationRepository.findById(applicationId).get();
         application.setApproved(true);
+        ApplicationRepository.save(application);
         return application;
     }
 
@@ -52,6 +53,7 @@ public class ApplicationService {
     public Application rejectApplication(Integer applicationId){
         Application application= ApplicationRepository.findById(applicationId).get();
         application.setApproved(false);
+        ApplicationRepository.save(application);
         return application;
     }
 

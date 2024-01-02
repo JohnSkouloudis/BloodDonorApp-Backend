@@ -20,10 +20,10 @@ public class NotificationService {
     private UserRepository userRepository;
 
     @Transactional
-    public void saveNotification(Notification notification,Integer userId){
+    public Notification saveNotification(Notification notification,Integer userId){
         User user= userRepository.findById(userId).get();
         notification.setUser(user);
-        notificationRepository.save(notification);
+        return notificationRepository.save(notification);
     }
 
     @Transactional
