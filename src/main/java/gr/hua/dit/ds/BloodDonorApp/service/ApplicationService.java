@@ -31,14 +31,28 @@ public class ApplicationService {
     }
 
     @Transactional
-    public void saveApplication(Application application){
-        ApplicationRepository.save(application);
+    public Application saveApplication(Application application){
+         return ApplicationRepository.save(application);
 
     }
 
     @Transactional
     public void deleteApplication(Integer applicationId){
         ApplicationRepository.deleteById(applicationId);
+    }
+
+    @Transactional
+    public Application approveApplication(Integer applicationId){
+        Application application= ApplicationRepository.findById(applicationId).get();
+        application.setApproved(true);
+        return application;
+    }
+
+    @Transactional
+    public Application rejectApplication(Integer applicationId){
+        Application application= ApplicationRepository.findById(applicationId).get();
+        application.setApproved(false);
+        return application;
     }
 
 
