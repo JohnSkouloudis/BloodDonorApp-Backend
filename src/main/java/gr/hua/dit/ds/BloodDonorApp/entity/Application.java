@@ -29,6 +29,9 @@ public class Application {
     @Column
     private String area;
 
+    @Column
+    private boolean approved;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bt_id")
     private BloodTest bloodTest;
@@ -41,11 +44,11 @@ public class Application {
     }
 
     public Application(
-                       Integer age,
-                       String firstName,
-                       String lastName,
-                       String bloodType,
-                       String area) {
+            Integer age,
+            String firstName,
+            String lastName,
+            String bloodType,
+            String area) {
         this.age = age;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -115,6 +118,14 @@ public class Application {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     @Override

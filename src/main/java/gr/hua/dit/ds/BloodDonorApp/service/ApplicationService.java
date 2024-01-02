@@ -25,20 +25,34 @@ public class ApplicationService {
         return ApplicationRepository.findById(applicationId).get();
     }
 
-//    @Transactional
-//    public Application findApplicationByUser(User user) {
-//        return ApplicationRepository.findByUser(user).get();
-//    }
+    @Transactional
+    public Application findApplicationByUser(User user) {
+        return ApplicationRepository.findByUser(user).get();
+    }
 
     @Transactional
     public Application saveApplication(Application application){
-        ApplicationRepository.save(application);
-        return application;
+        return ApplicationRepository.save(application);
+
     }
 
     @Transactional
     public void deleteApplication(Integer applicationId){
         ApplicationRepository.deleteById(applicationId);
+    }
+
+    @Transactional
+    public Application approveApplication(Integer applicationId){
+        Application application= ApplicationRepository.findById(applicationId).get();
+        application.setApproved(true);
+        return application;
+    }
+
+    @Transactional
+    public Application rejectApplication(Integer applicationId){
+        Application application= ApplicationRepository.findById(applicationId).get();
+        application.setApproved(false);
+        return application;
     }
 
 
