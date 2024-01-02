@@ -36,7 +36,7 @@ public class HospitalController {
         return hospital;
     }
 
-    @GetMapping("/{hospitalId}")
+    @GetMapping("/all")
     @ResponseBody
     public List<Hospital> getHospitals(){
         List<Hospital> hospitals = hospitalService.getHospitals();
