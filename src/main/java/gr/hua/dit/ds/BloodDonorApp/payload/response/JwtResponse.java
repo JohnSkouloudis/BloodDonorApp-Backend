@@ -1,17 +1,17 @@
 package gr.hua.dit.ds.BloodDonorApp.payload.response;
 
-
 import java.util.List;
 
-public class JwtRespons {
+public class JwtResponse {
+
     private String token;
     private String type = "Bearer";
-    private Long id;
+    private Integer id;
     private String username;
     private String email;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
+    public JwtResponse(String accessToken, Integer id, String username, String email, List<String> roles) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
@@ -35,11 +35,11 @@ public class JwtRespons {
         this.type = tokenType;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -62,4 +62,5 @@ public class JwtRespons {
     public List<String> getRoles() {
         return roles;
     }
+
 }

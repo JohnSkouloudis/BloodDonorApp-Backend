@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.BloodDonorApp.payload.response;
 
 public class MessageResponse {
+
     private String message;
 
     public MessageResponse(String message) {
@@ -14,4 +15,5 @@ public class MessageResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

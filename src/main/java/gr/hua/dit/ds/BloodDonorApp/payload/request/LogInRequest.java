@@ -2,7 +2,8 @@ package gr.hua.dit.ds.BloodDonorApp.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class LoginRequest {
+public class LogInRequest {
+
     @NotBlank
     private String username;
 

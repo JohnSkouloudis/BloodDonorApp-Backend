@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 
-public class SignupRequest {
+public class SignUpRequest {
 
     @NotBlank
     @Size(min = 3, max = 20)
@@ -53,4 +53,5 @@ public class SignupRequest {
     public void setRole(Set<String> role) {
         this.role = role;
     }
+
 }

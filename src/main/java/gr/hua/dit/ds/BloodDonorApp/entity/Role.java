@@ -10,7 +10,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 10)
+    @Column(length = 255)
     private String name;
 
     public Role() {
@@ -41,5 +41,8 @@ public class Role {
     public String toString() {
         return name;
     }
+
+
+
 
 }
