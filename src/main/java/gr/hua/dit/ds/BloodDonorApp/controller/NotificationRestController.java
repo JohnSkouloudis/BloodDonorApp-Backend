@@ -1,7 +1,6 @@
 package gr.hua.dit.ds.BloodDonorApp.controller;
 
 import gr.hua.dit.ds.BloodDonorApp.entity.Notification;
-import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
 import gr.hua.dit.ds.BloodDonorApp.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("notifications")
-public class NotificationController {
+@RequestMapping("/api/notifications")
+public class NotificationRestController {
 
     @Autowired
     private NotificationService notificationService;

@@ -49,7 +49,10 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/students/**").hasRole("USER")
+                        .requestMatchers("/hospital/all","/application/new").hasRole("USER")
+                        .requestMatchers("/hospital/**","/notifications/**","/application/**").hasRole("ADMIN")
+                        .requestMatchers("/application/{username}","notification/{userId}").hasRole("DONOR")
+                        .requestMatchers("/application/**","/notifications/**","/hospital/all").hasRole("SECRETARY")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -1,6 +1,5 @@
 package gr.hua.dit.ds.BloodDonorApp.controller;
 
-import gr.hua.dit.ds.BloodDonorApp.entity.Application;
 import gr.hua.dit.ds.BloodDonorApp.entity.Hospital;
 import gr.hua.dit.ds.BloodDonorApp.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("hospital")
-public class HospitalController {
+@RequestMapping("/api/hospital")
+public class HospitalRestController {
 
     @Autowired
     private HospitalService hospitalService;

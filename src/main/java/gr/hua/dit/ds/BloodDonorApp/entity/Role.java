@@ -3,15 +3,16 @@ package gr.hua.dit.ds.BloodDonorApp.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name ="roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 255)
+    @Column(length = 20)
     private String name;
+
 
     public Role() {
 

@@ -31,7 +31,7 @@ public class AppConfig {
                         ("Bearer Authentication", createAPIKeyScheme()))
                 .info(new Info().title("BloodDonorApp API")
                         .description("This API is used in BloodDonor project in Distributed Systems")
-                        .version("1.0").contact(new Contact().name("Skouloudis Ioannis,")
+                        .version("1.0").contact(new Contact().name("it2021082,it2021091,it21884")
                                 .email("it2021091@hua.gr").url("https://github.com/JohnSkouloudis/BloodDonorApp"))
                         .license(new License().name("License of API")
                                 .url("https://swagger.io/license/")));

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("application")
-public class ApplicationController {
+@RequestMapping("/api/application")
+public class ApplicationRestController {
 
     @Autowired
     private ApplicationService applicationService;
