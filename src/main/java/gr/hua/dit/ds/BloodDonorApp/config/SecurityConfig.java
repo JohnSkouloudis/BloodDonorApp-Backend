@@ -50,7 +50,7 @@ public class SecurityConfig {
                                 "/swagger-ui.html"
                         ).permitAll()
                         .requestMatchers("/hospital/all","/application/new").hasRole("USER")
-                        .requestMatchers("/hospital/**","/notifications/**","/application/**").hasRole("ADMIN")
+                        .requestMatchers("/hospital/**","/notifications/**","/application/**","/user/**").hasRole("ADMIN")
                         .requestMatchers("/application/{username}","notification/{userId}").hasRole("DONOR")
                         .requestMatchers("/application/**","/notifications/**","/hospital/all").hasRole("SECRETARY")
                         .anyRequest().authenticated()
