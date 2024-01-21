@@ -140,5 +140,11 @@ public class InitialDataService {
 
     }
 
-
+    @PostConstruct
+    public void setup() {
+        this.createUsersAndRoles();
+        this.createHospitals();
+        this.createApplications();
+        this.createNotifications();
+    }
 }
