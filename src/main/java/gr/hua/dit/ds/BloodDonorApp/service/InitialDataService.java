@@ -91,7 +91,7 @@ public class InitialDataService {
 
     private void createHospitals() {
         for (int i=1; i<=LAST_HOSPITAL_ID; i++) {
-            final String name = "Course " + i;
+            final String name = "Hospital " + i;
 
             this.hospitalRepository.findByName(name).orElseGet(() -> {
                 Hospital hospital = new Hospital();
@@ -104,47 +104,11 @@ public class InitialDataService {
 
 
 
-    private void createApplications(){
-        BloodTest bloodTest= new BloodTest(1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                "1/1/2023",
-                "AgiosDimitrios");
-        this.bloodTestRepository.save(bloodTest);
 
-        this.applicationRepository.findByUser(userRepository.findByUsername("user").get()).orElseGet(() -> {
-            Application application = new Application(13,"John","Doe","O-","Kallithea");
-            application.setApproved(false);
-            application.setBloodTest(bloodTest);
-            application.setUser(this.userRepository.findByUsername("user").get());
-
-            return null;
-        });
-
-
-
-
-    }
-
-    private void createNotifications(){
-        User user = userRepository.findByUsername("user").get();
-        for (int i=1; i<=LAST_NOTIFICATION_ID; i++){
-            Notification notification = new Notification();
-            notification.setType("emergency "+ i);
-            notification.setHospitalName("hospital "+ i);
-            this.notificationRepository.save(notification);
-        }
-
-    }
 
     @PostConstruct
     public void setup() {
         this.createUsersAndRoles();
         this.createHospitals();
-        this.createApplications();
-        this.createNotifications();
     }
 }
