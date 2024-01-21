@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.BloodDonorApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class Notification {
     @Column
     private String hospitalName;
 
-
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="user_id")
     private User user;
