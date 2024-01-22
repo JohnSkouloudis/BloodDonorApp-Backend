@@ -4,6 +4,7 @@ import gr.hua.dit.ds.BloodDonorApp.entity.Application;
 import gr.hua.dit.ds.BloodDonorApp.entity.Notification;
 import gr.hua.dit.ds.BloodDonorApp.entity.User;
 import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@Hidden
 public class UserRestController {
 
     @Autowired

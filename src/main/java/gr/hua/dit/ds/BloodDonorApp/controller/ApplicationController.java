@@ -5,6 +5,8 @@ import gr.hua.dit.ds.BloodDonorApp.entity.BloodTest;
 import gr.hua.dit.ds.BloodDonorApp.entity.User;
 import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
 import gr.hua.dit.ds.BloodDonorApp.service.ApplicationService;
+import gr.hua.dit.ds.BloodDonorApp.service.BloodTestService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("application")
+@RequestMapping("/api/application")
+@Hidden
 public class ApplicationController {
 
     @Autowired
     private ApplicationService applicationService;
+
+    @Autowired
+    private BloodTestService bloodTestService;
 
     @Autowired
     private UserRepository userRepository;
@@ -47,6 +53,7 @@ public class ApplicationController {
 
     @PostMapping("/new")
     public Application saveApplication(@RequestBody Application application, @RequestBody BloodTest bloodtest,@RequestBody User user){
+         bloodTestService.saveBloodTest(bloodtest);
          application.setUser(user);
          application.setBloodTest(bloodtest);
          return applicationService.saveApplication(application);
