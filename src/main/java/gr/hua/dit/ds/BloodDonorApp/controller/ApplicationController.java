@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/application")
-@Hidden
+
 public class ApplicationController {
 
     @Autowired
@@ -30,32 +30,16 @@ public class ApplicationController {
 
 
 
-    @GetMapping("/all")
-    @ResponseBody
-    public List<Application> getApplications() {
-        List<Application> applications = applicationService.getApplications();
-        return applications;
-    }
 
-    @GetMapping("/{applicationId}")
-    @ResponseBody
-    public Application getApplication(@PathVariable Integer applicationId){
-        Application application = applicationService.getApplication(applicationId);
-        return application;
-    }
 
-    @DeleteMapping("/{applicationId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> deleteApplication(@PathVariable Integer applicationId){
-        applicationService.deleteApplication(applicationId);
-        return ResponseEntity.ok("Application with ID " + applicationId + " deleted successfully.");
-    }
 
-    @PostMapping("/new")
-    public Application saveApplication(@RequestBody Application application, @RequestBody BloodTest bloodtest,@RequestBody User user){
-         bloodTestService.saveBloodTest(bloodtest);
+
+
+
+    @PostMapping("/new/{userId}")
+    public Application saveApplication(@RequestBody Application application,@PathVariable Integer userId){
+         User user = userRepository.findById(userId).get();
          application.setUser(user);
-         application.setBloodTest(bloodtest);
          return applicationService.saveApplication(application);
 
 

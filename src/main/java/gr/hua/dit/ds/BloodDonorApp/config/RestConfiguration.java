@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.BloodDonorApp.config;
 
 import gr.hua.dit.ds.BloodDonorApp.entity.Hospital;
+import gr.hua.dit.ds.BloodDonorApp.entity.Notification;
 import gr.hua.dit.ds.BloodDonorApp.entity.User;
 import gr.hua.dit.ds.BloodDonorApp.entity.Application;
 import org.springframework.context.annotation.Configuration;
@@ -17,5 +18,6 @@ public class RestConfiguration implements RepositoryRestConfigurer {
         config.exposeIdsFor(Hospital.class);
         config.exposeIdsFor(User.class);
         config.exposeIdsFor(Application.class);
+        config.exposeIdsFor(Notification.class);
     }
 }

@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.BloodDonorApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -36,6 +37,7 @@ public class Application {
     @JoinColumn(name = "bt_id")
     private BloodTest bloodTest;
 
+    @JsonIgnore
     @OneToOne(cascade = {CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
