@@ -32,11 +32,11 @@ public class Application {
     @Column
     private boolean approved;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "bt_id")
     private BloodTest bloodTest;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -54,6 +54,7 @@ public class Application {
         this.lastName = lastName;
         this.bloodType = bloodType;
         this.area = area;
+        this.approved=false;
     }
 
     public User getUser() {

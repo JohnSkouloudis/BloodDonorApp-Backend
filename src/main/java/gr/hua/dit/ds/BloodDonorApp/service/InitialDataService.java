@@ -103,12 +103,44 @@ public class InitialDataService {
     }
 
 
+    private void createApplications(){
+        User user = this.userRepository.findById(1).get();
+        this.applicationRepository.findByUser(user).orElseGet(() -> {
+            BloodTest bloodTest= new BloodTest(1,2,3,4,5,6,"1/2/3","agiosdimitrios");
+            Application application = new Application(13,"john","doe","O+","xalandri");
+            application.setBloodTest(bloodTest);
+            application.setUser(user);
+            userRepository.save(user);
+            applicationRepository.save(application);
+            return null;
+        });
 
 
+    }
+
+
+    private void createNotifications(){
+        User user = this.userRepository.findByUsername("user").get();
+        List<Notification> notifications = new ArrayList<>();
+        for (int i=1; i<=LAST_NOTIFICATION_ID; i++){
+            Notification notification = new Notification();
+            notification.setType("emergency "+ i);
+            notification.setHospitalName("hospital "+ i);
+            notification.setUser(user);
+
+            notifications.add(notification);
+
+        }
+        user.setNotifications(notifications);
+        this.userRepository.save(user);
+
+    }
 
     @PostConstruct
     public void setup() {
         this.createUsersAndRoles();
         this.createHospitals();
+        this.createNotifications();
+        this.createApplications();
     }
 }
