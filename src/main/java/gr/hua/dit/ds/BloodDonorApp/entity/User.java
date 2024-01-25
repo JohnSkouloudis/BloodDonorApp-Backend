@@ -49,14 +49,14 @@ public class User {
     private List<Notification> notifications;
 
     public User() {
-        this.lastBloodDonation = LocalDate.now();
+
     }
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.lastBloodDonation = LocalDate.now();
+
     }
 
     public List<Notification> getNotifications() {
@@ -67,13 +67,7 @@ public class User {
         this.notifications = notifications;
     }
 
-    public LocalDate getLastBloodDonation() {
-        return lastBloodDonation;
-    }
 
-    public void setLastBloodDonation(LocalDate lastBloodDonation) {
-        this.lastBloodDonation = lastBloodDonation;
-    }
 
     public Integer getId() {
         return id;

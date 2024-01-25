@@ -30,8 +30,12 @@ public class ApplicationController {
 
 
 
-
-
+    @GetMapping("/all")
+    @ResponseBody
+    public List<Application> getApplications() {
+        List<Application> applications = applicationService.getApplications();
+        return applications;
+    }
 
 
 
