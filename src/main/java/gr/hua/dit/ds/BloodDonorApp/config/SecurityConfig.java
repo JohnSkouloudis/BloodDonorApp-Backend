@@ -49,7 +49,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/api/application/new/**").hasAnyRole("ADMIN","SECRETARY","USER")
+                        .requestMatchers("/api/application/new/**","/api/application/{username}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}").hasAnyRole("ADMIN","SECRETARY","USER")
+                        .requestMatchers("/api/application/{applicationId}/approve","/api/application/{applicationId}/reject","/api/application/all","/api/notifications/new/{userId}","/api/application/delete/{applicationId}").hasAnyRole("ADMIN","SECRETARY")
                         .requestMatchers("/**").hasAnyRole("ADMIN","SECRETARY")
                         .anyRequest().authenticated()
                 )

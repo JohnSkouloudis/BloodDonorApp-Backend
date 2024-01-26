@@ -37,7 +37,12 @@ public class ApplicationController {
         return applications;
     }
 
-
+    @DeleteMapping("/delete/{applicationId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<String> deleteApplication(@PathVariable Integer applicationId){
+        applicationService.deleteApplication(applicationId);
+        return ResponseEntity.ok("Application with ID " + applicationId + " deleted successfully.");
+    }
 
 
     @PostMapping("/new/{userId}")

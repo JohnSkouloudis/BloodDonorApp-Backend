@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notifications")
-@Hidden
 public class NotificationController {
 
     @Autowired
