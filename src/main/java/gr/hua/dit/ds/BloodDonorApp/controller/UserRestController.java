@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-@Hidden
 public class UserRestController {
 
     @Autowired

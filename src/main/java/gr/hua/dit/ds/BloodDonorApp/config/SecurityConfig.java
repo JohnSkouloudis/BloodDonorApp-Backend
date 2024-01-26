@@ -8,7 +8,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
@@ -61,10 +62,9 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/hospital/all","/application/new").hasRole("USER")
-                        .requestMatchers("/hospital/**","/notifications/**","/application/**","/user/**").hasRole("ADMIN")
-                        .requestMatchers("/application/{username}","notification/{userId}").hasRole("DONOR")
-                        .requestMatchers("/application/**","/notifications/**","/hospital/all").hasRole("SECRETARY")
+                        .requestMatchers("/api/application/new/**","/api/application/{username}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}").hasAnyRole("ADMIN","SECRETARY","USER")
+                        .requestMatchers("/api/application/{applicationId}/approve","/api/application/{applicationId}/reject","/api/application/all","/api/notifications/new/{userId}","/api/application/delete/{applicationId}").hasAnyRole("ADMIN","SECRETARY")
+                        .requestMatchers("/**").hasAnyRole("ADMIN","SECRETARY")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

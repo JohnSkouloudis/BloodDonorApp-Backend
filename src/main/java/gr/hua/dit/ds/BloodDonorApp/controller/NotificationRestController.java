@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.BloodDonorApp.controller;
 
 import gr.hua.dit.ds.BloodDonorApp.entity.Notification;
+import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
 import gr.hua.dit.ds.BloodDonorApp.service.NotificationService;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notifications")
-@Hidden
 public class NotificationRestController {
 
     @Autowired

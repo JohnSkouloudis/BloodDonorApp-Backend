@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 
-@Hidden
+
 @RepositoryRestResource(path= "user")
 public interface UserRepository extends JpaRepository<User,Integer> {
 

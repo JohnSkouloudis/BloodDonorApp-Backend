@@ -104,7 +104,7 @@ public class InitialDataService {
 
 
     private void createApplications(){
-        User user = this.userRepository.findById(1).get();
+        User user = this.userRepository.findByUsername("user").get();
         this.applicationRepository.findByUser(user).orElseGet(() -> {
             BloodTest bloodTest= new BloodTest(1,2,3,4,5,6,"1/2/3","agiosdimitrios");
             Application application = new Application(13,"john","doe","O+","xalandri");

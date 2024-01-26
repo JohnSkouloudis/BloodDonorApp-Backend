@@ -16,17 +16,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/application")
-@Hidden
+
 public class ApplicationRestController {
 
     @Autowired
     private ApplicationService applicationService;
 
     @Autowired
-    private UserRepository userRepository;
+    private BloodTestService bloodTestService;
 
     @Autowired
-    private BloodTestService bloodTestService;
+    private UserRepository userRepository;
 
 
 
@@ -37,31 +37,24 @@ public class ApplicationRestController {
         return applications;
     }
 
-    @GetMapping("/{applicationId}")
-    @ResponseBody
-    public Application getApplication(@PathVariable Integer applicationId){
-        Application application = applicationService.getApplication(applicationId);
-        return application;
-    }
-
-    @DeleteMapping("/{applicationId}")
+    @DeleteMapping("/delete/{applicationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> deleteApplication(@PathVariable Integer applicationId){
         applicationService.deleteApplication(applicationId);
         return ResponseEntity.ok("Application with ID " + applicationId + " deleted successfully.");
     }
 
-    @PostMapping("/new")
-    public Application saveApplication(@RequestBody Application application, @RequestBody BloodTest bloodtest,@RequestBody User user){
-        bloodTestService.saveBloodTest(bloodtest);
+
+    @PostMapping("/new/{userId}")
+    public Application saveApplication(@RequestBody Application application,@PathVariable Integer userId){
+        User user = userRepository.findById(userId).get();
         application.setUser(user);
-        application.setBloodTest(bloodtest);
         return applicationService.saveApplication(application);
 
 
     }
 
-    @PostMapping("/{applicationId}/approve")
+    @PostMapping("/approve/{applicationId}")
     public ResponseEntity<Application> approveApplication(@PathVariable Integer applicationId){
         Application approvedApplication = applicationService.approveApplication(applicationId);
         if (approvedApplication != null) {
@@ -71,7 +64,7 @@ public class ApplicationRestController {
         }
     }
 
-    @PostMapping("/{applicationId}/reject")
+    @PostMapping("/reject/{applicationId}")
     public ResponseEntity<Application> rejectApplication(@PathVariable Integer applicationId) {
         Application rejectedApplication = applicationService.rejectApplication(applicationId);
         if (rejectedApplication != null) {
