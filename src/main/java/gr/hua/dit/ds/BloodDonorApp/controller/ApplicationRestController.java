@@ -6,6 +6,7 @@ import gr.hua.dit.ds.BloodDonorApp.entity.User;
 import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
 import gr.hua.dit.ds.BloodDonorApp.service.ApplicationService;
 import gr.hua.dit.ds.BloodDonorApp.service.BloodTestService;
+import gr.hua.dit.ds.BloodDonorApp.repository.ApplicationRepository;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ import java.util.List;
 @RequestMapping("/api/application")
 
 public class ApplicationRestController {
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
     @Autowired
     private ApplicationService applicationService;
@@ -68,18 +72,16 @@ public class ApplicationRestController {
     public ResponseEntity<Application> rejectApplication(@PathVariable Integer applicationId) {
         Application rejectedApplication = applicationService.rejectApplication(applicationId);
         if (rejectedApplication != null) {
-            return ResponseEntity.ok(rejectedApplication);
+            return ResponseEntity.ok    (rejectedApplication);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/{username}")
-    public Application getUserApplication(@PathVariable String username){
+    @GetMapping("/{applicationId}")
+    public Application getUserApplication(@PathVariable Integer applicationId){
 
-        User user = userRepository.findByUsername(username).get();
-
-        return  applicationService.findApplicationByUser(user);
+        return  applicationRepository.findById(applicationId).get();
 
     }
 
