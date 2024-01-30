@@ -3,6 +3,7 @@ package gr.hua.dit.ds.BloodDonorApp.controller;
 import gr.hua.dit.ds.BloodDonorApp.entity.Application;
 import gr.hua.dit.ds.BloodDonorApp.entity.BloodTest;
 import gr.hua.dit.ds.BloodDonorApp.entity.User;
+import gr.hua.dit.ds.BloodDonorApp.repository.ApplicationRepository;
 import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
 import gr.hua.dit.ds.BloodDonorApp.service.ApplicationService;
 import gr.hua.dit.ds.BloodDonorApp.service.BloodTestService;
@@ -23,6 +24,9 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
     private BloodTestService bloodTestService;
 
     @Autowired
@@ -40,7 +44,6 @@ public class ApplicationController {
     @DeleteMapping("/delete/{applicationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> deleteApplication(@PathVariable Integer applicationId){
-        applicationService.deleteApplication(applicationId);
         return ResponseEntity.ok("Application with ID " + applicationId + " deleted successfully.");
     }
 
@@ -74,12 +77,10 @@ public class ApplicationController {
         }
     }
 
-    @GetMapping("/{username}")
-    public Application getUserApplication(@PathVariable String username){
+    @GetMapping("/{applicationId}")
+    public Application getUserApplication(@PathVariable Integer applicationId){
 
-        User user = userRepository.findByUsername(username).get();
-
-        return  applicationService.findApplicationByUser(user);
+        return  applicationRepository.findById(applicationId).get();
 
     }
 

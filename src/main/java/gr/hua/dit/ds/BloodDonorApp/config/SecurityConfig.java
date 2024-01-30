@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -36,9 +39,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(
+                List.of("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:5173"));
+        corsConfiguration
+                .setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+                .cors(cors -> cors.configurationSource(request -> corsConfiguration))
+                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(auth -> auth
@@ -49,7 +62,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/api/application/new/**","/api/application/{username}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}").hasAnyRole("ADMIN","SECRETARY","USER")
+                        .requestMatchers("/api/application/new/**","/api/application/{applicationId}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}").hasAnyRole("ADMIN","SECRETARY","USER")
                         .requestMatchers("/api/application/{applicationId}/approve","/api/application/{applicationId}/reject","/api/application/all","/api/notifications/new/{userId}","/api/application/delete/{applicationId}").hasAnyRole("ADMIN","SECRETARY")
                         .requestMatchers("/**").hasAnyRole("ADMIN","SECRETARY")
                         .anyRequest().authenticated()
