@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -40,13 +41,20 @@ public class UserRestController {
     }
 
     @DeleteMapping("/delete/{userId}")
-    public void deleteUser(@PathVariable Integer userId){
-        User user = userRepository.findById(userId).get();
-        Application application = applicationRepository.findByUser(user).get();
-        Integer appId = application.getId();
+    public void deleteUser(@PathVariable Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
 
-        applicationRepository.deleteById(appId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Optional<Application> applicationOptional = applicationRepository.findByUser(user);
 
-        userRepository.deleteById(userId);
+            if (applicationOptional.isPresent()) {
+                Application application = applicationOptional.get();
+                Integer appId = application.getId();
+
+                applicationRepository.deleteById(appId);
+            }
+            userRepository.deleteById(userId);
+        }
     }
 }
