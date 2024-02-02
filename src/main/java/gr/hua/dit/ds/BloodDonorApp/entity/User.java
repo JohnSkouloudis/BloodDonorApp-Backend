@@ -37,7 +37,9 @@ public class User {
     private String password;
 
     @Column
-    private LocalDate lastBloodDonation;
+    private String phoneNumber;
+
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
@@ -57,6 +59,14 @@ public class User {
         this.email = email;
         this.password = password;
 
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public List<Notification> getNotifications() {

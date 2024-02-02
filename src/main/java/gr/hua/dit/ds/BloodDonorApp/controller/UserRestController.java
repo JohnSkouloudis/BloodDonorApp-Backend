@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
@@ -54,4 +55,19 @@ public class UserRestController {
 
         userRepository.deleteById(userId);
     }
+
+
+    @PatchMapping("/phonenumber/{userId}")
+    public void updatePersonalInfo(@PathVariable Integer userId, @RequestBody String update){
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setPhoneNumber(update);
+            userRepository.save(user);
+        }
+
+
+    }
+
 }
