@@ -5,7 +5,7 @@
 mvn spring-boot:run
 ```
 
-#Start postgres db as container
+# Start postgres db as container
 ```sh
 docker run --name BloodDonor-Database --rm \
 -e POSTGRES_PASSWORD=pass123 \
