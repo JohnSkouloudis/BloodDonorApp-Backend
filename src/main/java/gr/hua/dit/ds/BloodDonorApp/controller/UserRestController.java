@@ -40,6 +40,17 @@ public class UserRestController {
         return userRepository.save(user);
     }
 
+    @PatchMapping("/phonenumber/{userId}")
+    public void updatePersonalInfo(@PathVariable Integer userId, @RequestBody String update){
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setPhoneNumber(update);
+            userRepository.save(user);
+        }
+    }
+
     @DeleteMapping("/delete/{userId}")
     public void deleteUser(@PathVariable Integer userId) {
         Optional<User> userOptional = userRepository.findById(userId);

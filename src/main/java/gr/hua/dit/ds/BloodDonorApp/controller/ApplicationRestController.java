@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/application")
@@ -84,5 +85,14 @@ public class ApplicationRestController {
         return  applicationRepository.findById(applicationId).get();
 
     }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Application> findByUser(@PathVariable Integer userId) {
+        Optional<Application> application = applicationRepository.findByUserId(userId);
+
+        return application.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
 
 }

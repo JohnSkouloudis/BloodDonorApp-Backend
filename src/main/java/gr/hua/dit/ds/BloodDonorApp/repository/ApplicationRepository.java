@@ -8,10 +8,12 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource(path= "application")
 public interface ApplicationRepository extends JpaRepository<Application,Integer> {
 
     Optional<Application> findByUser(User user);
+    Optional<Application> findByUserId(Integer userId);
 }

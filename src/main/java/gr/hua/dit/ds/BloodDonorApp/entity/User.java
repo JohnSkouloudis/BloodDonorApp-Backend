@@ -36,6 +36,10 @@ public class User {
     @Size(max = 120)
     private String password;
 
+
+    @Column
+    private String phoneNumber;
+
     @Column
     private LocalDate lastBloodDonation;
 
@@ -106,6 +110,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getPhoneNumber() {return phoneNumber;}
+
+    public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
 
     public Set<Role> getRoles() {
         return roles;
