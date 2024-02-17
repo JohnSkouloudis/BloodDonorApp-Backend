@@ -61,17 +61,6 @@ public class UserRestController {
             userRepository.save(user);
         }
     }
-    @PatchMapping("/email/{userId}")
-    public void updateEmail(@PathVariable Integer userId, @RequestBody String update){
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setEmail(update);
-            userRepository.save(user);
-        }
-    }
-
 
     @DeleteMapping("/delete/{userId}")
     public void deleteUser(@PathVariable Integer userId) {
