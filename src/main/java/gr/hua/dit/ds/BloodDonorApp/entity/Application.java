@@ -32,6 +32,9 @@ public class Application {
     @Column
     private boolean approved;
 
+    @Column
+    private boolean rejected;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "bt_id")
     private BloodTest bloodTest;
@@ -55,6 +58,7 @@ public class Application {
         this.bloodType = bloodType;
         this.area = area;
         this.approved=false;
+        this.rejected=false;
     }
 
     public User getUser() {
@@ -128,6 +132,9 @@ public class Application {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
+    public boolean isRejected() {return rejected;}
+
+    public void setRejected(boolean rejected) {this.rejected = rejected;}
 
     @Override
     public String toString() {
