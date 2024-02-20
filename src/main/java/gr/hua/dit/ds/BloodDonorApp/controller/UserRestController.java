@@ -3,6 +3,7 @@ package gr.hua.dit.ds.BloodDonorApp.controller;
 import gr.hua.dit.ds.BloodDonorApp.entity.Application;
 import gr.hua.dit.ds.BloodDonorApp.entity.Notification;
 import gr.hua.dit.ds.BloodDonorApp.entity.User;
+import gr.hua.dit.ds.BloodDonorApp.payload.request.UpdatePersonalInfoRequest;
 import gr.hua.dit.ds.BloodDonorApp.repository.ApplicationRepository;
 import gr.hua.dit.ds.BloodDonorApp.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -40,34 +41,46 @@ public class UserRestController {
         return userRepository.save(user);
     }
 
-    @DeleteMapping("{userId}")
-    public void deleteUser(@PathVariable Integer userId){
-        User user = userRepository.findById(userId).get();
-        Application application = applicationRepository.findByUser(user).get();
+    @DeleteMapping("/delete/{userId}")
+    public void deleteUser(@PathVariable Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
 
-        Integer appId = application.getId();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Optional<Application> applicationOptional = applicationRepository.findByUser(user);
 
-        if(appId != null){
-            applicationRepository.deleteById(appId);
+            if (applicationOptional.isPresent()) {
+                Application application = applicationOptional.get();
+                Integer appId = application.getId();
+
+                applicationRepository.deleteById(appId);
+            }
+            userRepository.deleteById(userId);
         }
-
-
-
-        userRepository.deleteById(userId);
     }
 
 
-    @PatchMapping("/phonenumber/{userId}")
-    public void updatePersonalInfo(@PathVariable Integer userId, @RequestBody String update){
+    @PatchMapping("/edit/{userId}")
+    public void updatePersonalInfo(@PathVariable Integer userId, @RequestBody UpdatePersonalInfoRequest update){
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setPhoneNumber(update);
+
+            if (update.getUsername() != null && !update.getUsername().isEmpty()) {
+                user.setUsername(update.getUsername());
+            }
+
+            if (update.getEmail() != null && !update.getEmail().isEmpty()) {
+                user.setEmail(update.getEmail());
+            }
+
+            if (update.getUsername() != null && !update.getPhoneNumber().isEmpty()) {
+                user.setPhoneNumber(update.getPhoneNumber());
+            }
+
             userRepository.save(user);
         }
-
-
     }
 
 }

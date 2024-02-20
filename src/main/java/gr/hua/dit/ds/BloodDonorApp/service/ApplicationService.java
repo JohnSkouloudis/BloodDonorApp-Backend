@@ -16,6 +16,24 @@ public class ApplicationService {
     private ApplicationRepository ApplicationRepository;
 
     @Transactional
+    public Application approveApplication(Integer applicationId){
+        Application application= ApplicationRepository.findById(applicationId).get();
+        application.setApproved(true);
+        application.setRejected(false);
+        ApplicationRepository.save(application);
+        return application;
+    }
+
+    @Transactional
+    public Application rejectApplication(Integer applicationId){
+        Application application= ApplicationRepository.findById(applicationId).get();
+        application.setApproved(false);
+        application.setRejected(true);
+        ApplicationRepository.save(application);
+        return application;
+    }
+
+    @Transactional
     public List<Application> getApplications(){
         return ApplicationRepository.findAll();
     }
@@ -41,21 +59,9 @@ public class ApplicationService {
         ApplicationRepository.deleteById(applicationId);
     }
 
-    @Transactional
-    public Application approveApplication(Integer applicationId){
-        Application application= ApplicationRepository.findById(applicationId).get();
-        application.setApproved(true);
-        ApplicationRepository.save(application);
-        return application;
-    }
 
-    @Transactional
-    public Application rejectApplication(Integer applicationId){
-        Application application= ApplicationRepository.findById(applicationId).get();
-        application.setApproved(false);
-        ApplicationRepository.save(application);
-        return application;
-    }
+
+
 
 
 }

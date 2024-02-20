@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/application")
@@ -44,6 +45,7 @@ public class ApplicationController {
     @DeleteMapping("/delete/{applicationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> deleteApplication(@PathVariable Integer applicationId){
+        applicationService.deleteApplication(applicationId);
         return ResponseEntity.ok("Application with ID " + applicationId + " deleted successfully.");
     }
 
@@ -57,7 +59,7 @@ public class ApplicationController {
 
     }
 
-    @PostMapping("/{applicationId}/approve")
+    @PostMapping("/approve/{applicationId}")
     public ResponseEntity<Application> approveApplication(@PathVariable Integer applicationId){
         Application approvedApplication = applicationService.approveApplication(applicationId);
         if (approvedApplication != null) {
@@ -67,7 +69,7 @@ public class ApplicationController {
         }
     }
 
-    @PostMapping("/{applicationId}/reject")
+    @PostMapping("/reject/{applicationId}")
     public ResponseEntity<Application> rejectApplication(@PathVariable Integer applicationId) {
         Application rejectedApplication = applicationService.rejectApplication(applicationId);
         if (rejectedApplication != null) {
@@ -82,6 +84,14 @@ public class ApplicationController {
 
         return  applicationRepository.findById(applicationId).get();
 
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Application> findByUser(@PathVariable Integer userId) {
+        Optional<Application> application = applicationRepository.findByUserId(userId);
+
+        return application.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

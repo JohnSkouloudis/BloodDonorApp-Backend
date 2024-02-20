@@ -15,4 +15,5 @@ public interface ApplicationRepository extends JpaRepository<Application,Integer
 
 
     Optional<Application> findByUser(User user);
+    Optional<Application> findByUserId(Integer userId);
 }

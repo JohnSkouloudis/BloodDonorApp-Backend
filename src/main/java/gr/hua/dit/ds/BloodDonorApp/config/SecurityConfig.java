@@ -62,10 +62,11 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/api/application/new/**","/api/application/{applicationId}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}").hasAnyRole("ADMIN","SECRETARY","USER")
-                        .requestMatchers("/api/application/{applicationId}/approve","/api/application/{applicationId}/reject","/api/application/all","/api/notifications/new/{userId}","/api/application/delete/{applicationId}").hasAnyRole("ADMIN","SECRETARY")
+                        .requestMatchers("/api/application/new/**","/api/application/{applicationId}","api/user/edit/{userId}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}","/api/hospital/all","/api/application/user/{userId}").hasAnyRole("ADMIN","SECRETARY","USER")
+                        .requestMatchers("/api/application/{applicationId}/approve","/api/application/{applicationId}/reject","/api/application/all","/api/notifications/new/{userId}","api/user/edit/{userId}","/api/application/delete/{applicationId}").hasAnyRole("ADMIN","SECRETARY")
                         .requestMatchers("/**").hasAnyRole("ADMIN","SECRETARY")
                         .anyRequest().authenticated()
+
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
