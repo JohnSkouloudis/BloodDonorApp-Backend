@@ -1,8 +1,10 @@
 package gr.hua.dit.ds.BloodDonorApp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,6 +24,12 @@ import java.util.List;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
+    @Value("${frontend.ip}")
+    private String frontendIp;
+
+    @Autowired
+    private Environment env;
+
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
@@ -39,9 +47,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        String frontendIp = env.getProperty("frontend.ip");
         final CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:5173"));
+        assert frontendIp != null;
+        corsConfiguration.setAllowedOrigins(List.of(frontendIp));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setExposedHeaders(List.of("Authorization"));
