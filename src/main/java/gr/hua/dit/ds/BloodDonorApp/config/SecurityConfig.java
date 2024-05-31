@@ -51,7 +51,7 @@ public class SecurityConfig {
         final CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         assert frontendIp != null;
-        corsConfiguration.setAllowedOrigins(List.of("http://" + frontendIp));
+        corsConfiguration.setAllowedOrigins(List.of(frontendIp));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setExposedHeaders(List.of("Authorization"));
