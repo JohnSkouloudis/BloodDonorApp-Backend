@@ -10,12 +10,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
@@ -39,11 +40,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManagerBean (AuthenticationConfiguration authConfig) throws Exception {
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
-
     }
 
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        corsConfiguration.setAllowedOrigins(List.of(frontendIp));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(source);
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -52,7 +64,7 @@ public class SecurityConfig {
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         assert frontendIp != null;
         corsConfiguration.setAllowedOrigins(List.of(frontendIp));
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setExposedHeaders(List.of("Authorization"));
 
@@ -69,20 +81,14 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/api/application/new/**","/api/application/{applicationId}","api/user/edit/{userId}","/hospital","/api/notifications/{userId}","/api/notifications/{notificationId}","/api/hospital/all","/api/application/user/{userId}").hasAnyRole("ADMIN","SECRETARY","USER")
-                        .requestMatchers("/api/application/{applicationId}/approve","/api/application/{applicationId}/reject","/api/application/all","/api/notifications/new/{userId}","api/user/edit/{userId}","/api/application/delete/{applicationId}").hasAnyRole("ADMIN","SECRETARY")
-                        .requestMatchers("/**").hasAnyRole("ADMIN","SECRETARY")
+                        .requestMatchers("/api/application/new/**", "/api/application/{applicationId}", "api/user/edit/{userId}", "/hospital", "/api/notifications/{userId}", "/api/notifications/{notificationId}", "/api/hospital/all", "/api/application/user/{userId}").hasAnyRole("ADMIN", "SECRETARY", "USER")
+                        .requestMatchers("/api/application/{applicationId}/approve", "/api/application/{applicationId}/reject", "/api/application/all", "/api/notifications/new/{userId}", "api/user/edit/{userId}", "/api/application/delete/{applicationId}").hasAnyRole("ADMIN", "SECRETARY")
+                        .requestMatchers("/**").hasAnyRole("ADMIN", "SECRETARY")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
-
-
     }
-
-
-
 }
