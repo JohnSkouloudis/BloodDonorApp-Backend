@@ -17,7 +17,7 @@ services:
       timeout: 30s
       retries: 3
     volumes:
-      - 'dslabdb:/var/lib/postgresql/data/'
+      - 'ds-lab-vol:/var/lib/postgresql/data/'
   spring:
     image: sp
     build:
@@ -39,13 +39,13 @@ services:
       retries: 3
 
   frontend:
-    #image: front
+    image: front
     build:
       context: https://github.com/PanayiotisPerdios/blood-donor-app-frontend#main
       #context: https://github.com/PanayiotisPerdios/blood-donor-app-frontend#env
-      #dockerfile: node.Dockerfile
-#    environment:
-#      - VITE_BACKEND=http://spring:9090
+      dockerfile: node.Dockerfile
+    environment:
+      - VITE_BACKEND=http://spring:9090
     ports:
       - 9000:80
     depends_on:
