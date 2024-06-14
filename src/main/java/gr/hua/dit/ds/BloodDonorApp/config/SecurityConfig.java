@@ -74,7 +74,7 @@ public class SecurityConfig {
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**","/actuator/health/**").permitAll()
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/v2/api-docs/**",
