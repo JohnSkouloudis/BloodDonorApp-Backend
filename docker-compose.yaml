@@ -12,7 +12,7 @@ services:
     healthcheck:
       test:
         - CMD-SHELL
-        - pg_isready -U postgres
+        - pg_isready -U dbuser
       interval: 30s
       timeout: 30s
       retries: 3
@@ -38,12 +38,9 @@ services:
       timeout: 30s
       retries: 3
 
-  frontend:
-    image: front
-    build:
-      context: https://github.com/PanayiotisPerdios/blood-donor-app-frontend#main
-      #context: https://github.com/PanayiotisPerdios/blood-donor-app-frontend#env
-      dockerfile: node.Dockerfile
+  vuejs:
+    image: ghcr.io/panayiotisperdios/blood-donor-frontend:latest
+    
     environment:
       - VITE_BACKEND=http://spring:9090
     ports:
