@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vuejs-ingress
+spec:
+  rules:
+  - host: "blood-donors.ddns.net"
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: vuejs-svc
+            port:
+              name: vuejs

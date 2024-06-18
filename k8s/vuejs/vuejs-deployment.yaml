@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  vuejs-deployment
+  namespace: default
+  labels:
+    app: vuejs
+spec:
+  selector:
+    matchLabels:
+      app: vuejs
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vuejs
+    spec:
+      containers:
+      - name:  vuejs
+        image:  ghcr.io/panayiotisperdios/blood-donor-frontend:latest
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        ports:
+        - containerPort: 80
+          name:  vuejs
+      imagePullSecrets:
+      - name: registry-credentials
