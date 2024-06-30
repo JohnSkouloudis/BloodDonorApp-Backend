@@ -8,15 +8,15 @@ pipeline {
     environment {
         EMAIL_TO = "it2021091@hua.gr"
         DOCKER_TOKEN = credentials('docker-push-secret')
-        DOCKER_USER = 'tsadimas'
+        DOCKER_USER = 'panayiotisperdios'
         DOCKER_SERVER = 'ghcr.io'
-        DOCKER_PREFIX = 'ghcr.io/tsadimas/ds-spring'
+        DOCKER_PREFIX = 'ghcr.io/panayiotisperdios/blood-donor-backend:1.0'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'api', url: 'git@github.com:tsadimasteaching/ds-lab-2023.git'
+                git branch: 'main', url: 'git@github.com:JohnSkouloudis/BloodDonorApp-Backend.git'
             }
         }
         stage('Test') {
@@ -44,7 +44,7 @@ pipeline {
                     steps {
                         sh '''
                             export ANSIBLE_CONFIG=~/workspace/ansible/ansible.cfg
-                            ansible-playbook -i ~/workspace/ansible/hosts.yaml -l appserver-vm ~/workspace/ansible/playbooks/spring-vue-docker.yaml
+                            ansible-playbook -i ~/workspace/ansible/hosts.yaml -l azure-backend-server ~/workspace/ansible/playbooks/spring-vue-docker.yaml
                         '''
                     }
          }

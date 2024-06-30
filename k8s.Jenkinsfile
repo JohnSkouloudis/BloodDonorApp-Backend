@@ -6,17 +6,17 @@ pipeline {
     }
 
     environment {
-        EMAIL_TO = "tsaadimas@hua.gr"
+        EMAIL_TO = "it2021091@hua.gr"
         DOCKER_TOKEN = credentials('docker-push-secret')
-        DOCKER_USER = 'tsadimas'
+        DOCKER_USER = 'panayiotisperdios'
         DOCKER_SERVER = 'ghcr.io'
-        DOCKER_PREFIX = 'ghcr.io/tsadimas/ds-spring'
+        DOCKER_PREFIX = 'ghcr.io/panayiotisperdios/blood-donor-backend:1.0'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'api', url: 'git@github.com:tsadimasteaching/ds-lab-2023.git'
+                git branch: 'main', url: 'git@github.com:JohnSkouloudis/BloodDonorApp-Backend.git'
             }
         }
         stage('Test') {
