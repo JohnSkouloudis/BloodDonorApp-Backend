@@ -11,6 +11,11 @@ pipeline {
                 git branch: 'main', url: 'git@github.com:JohnSkouloudis/BloodDonorApp-Backend.git'
             }
         }
+        stage('Test') {
+            steps {
+                sh './mvnw test'
+            }
+        }
         stage('run ansible pipeline') {
             steps {
                 build job: 'ansible'
@@ -51,7 +56,6 @@ pipeline {
        stage('Deploy frontend') {
             steps {
                 sh '''
-                    
                     export ANSIBLE_CONFIG=~/workspace/ansible/ansible.cfg
                     ansible-playbook -i ~/workspace/ansible/hosts.yaml -l azure-backend-server -e branch=main -e backend_server_url=http://localhost:9090 ~/workspace/ansible/playbooks/vuejs.yaml
                 '''
