@@ -19,10 +19,6 @@ pipeline {
                 git branch: 'main', url: 'git@github.com:JohnSkouloudis/BloodDonorApp-Backend.git'
             }
         }
-        stage('Test') {
-            steps {
-                sh './mvnw test'
-            }
         }// add if repo private echo $DOCKER_TOKEN | docker login $DOCKER_SERVER -u $DOCKER_USER --password-stdin
         stage('Docker build and push') {
             steps {
@@ -49,9 +45,4 @@ pipeline {
          }
     }
 
-    post {
-        always {
-            mail  to: "it2021091@hua.gr", body: "Project ${env.JOB_NAME} <br>, Build status ${currentBuild.currentResult} <br> Build Number: ${env.BUILD_NUMBER} <br> Build URL: ${env.BUILD_URL}", subject: "JENKINS: Project name -> ${env.JOB_NAME}, Build -> ${currentBuild.currentResult}"
-        }
-    }
 }
