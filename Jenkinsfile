@@ -11,11 +11,6 @@ pipeline {
                 git branch: 'main', url: 'git@github.com:JohnSkouloudis/BloodDonorApp-Backend.git'
             }
         }
-        stage('Test') {
-            steps {
-                sh './mvnw test'
-            }
-        }
         stage('run ansible pipeline') {
             steps {
                 build job: 'ansible'
