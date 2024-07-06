@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name:  spring
-        image:  ghcr.io/panayiotisperdios/blood-donor-backend:1.0
+        image:  ghcr.io/panayiotisperdios/blood-donor-backend:latest
         livenessProbe:
           httpGet:
             path: "/actuator/health/liveness"
