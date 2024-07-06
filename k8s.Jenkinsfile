@@ -19,6 +19,12 @@ pipeline {
                 git branch: 'main', url: 'git@github.com:JohnSkouloudis/BloodDonorApp-Backend.git'
             }
         }
+        
+        stage('Test') {
+            steps {
+                sh './mvnw test'
+            }
+        }
 
         stage('Docker build and push') {
             steps {
