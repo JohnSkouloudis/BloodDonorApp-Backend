@@ -8,7 +8,7 @@ pipeline {
     environment {
         EMAIL_TO = "it2021091@hua.gr"
         DOCKER_USER = 'panayiotisperdios'
-        DOCKER_TOKEN = credentials('docker-push-secret')
+        DOCKER_TOKEN = credentials('package-writting-token')
         DOCKER_SERVER = 'ghcr.io'
         DOCKER_PREFIX = 'ghcr.io/panayiotisperdios/blood-donor-backend'
     }
