@@ -1,3 +1,4 @@
+# Blood Donor App Backend
 
 # Start Spring
 
@@ -14,4 +15,12 @@ docker run --name BloodDonor-Database --rm \
 -d --net=host \
 -v ds-lab-vol:/var/lib/postgresql/data \
 postgres:14
+```
+# Dockerize
+```sh
+./mvnw package -Dmaven.test.skip
+```
+# Start
+```sh
+docker-compose up
 ```
