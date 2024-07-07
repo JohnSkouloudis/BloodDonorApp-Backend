@@ -8,7 +8,6 @@ Replace cni0 with your network interface, e.g. eth0 (you can find it by running 
 sudo ufw allow in on eth0 && sudo ufw allow out on eth0
 sudo ufw default allow routed
 ```
-
 # Access microk8s without sudo
 ```sh
 sudo usermod -a -G microk8s $USER
@@ -21,7 +20,7 @@ sudo su - $USER
 microk8s.enable dns storage ingress
 ```
 # Kubernetes remote access(with kubectl)
-* [Link](https://kubernetes.io/docs/tasks/tools/)
+* [Kubectl Link](https://kubernetes.io/docs/tasks/tools/)
 ```sh
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x kubectl
