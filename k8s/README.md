@@ -36,6 +36,10 @@ kubectl get nodes
 ```sh
 curl -sS https://webinstall.dev/k9s | bash
 ```
+# Generate config file
+```sh
+microk8s.kubectl config view --raw > ~/.kube/config
+```
 # Copy kubeconfig file from remote vm
 ```sh
 mkdir -p ~/.kube
